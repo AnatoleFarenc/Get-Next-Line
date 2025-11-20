@@ -6,47 +6,35 @@
 /*   By: anfarenc <anfarenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 18:48:06 by anfarenc          #+#    #+#             */
-/*   Updated: 2025/11/19 18:23:32 by anfarenc         ###   ########.fr       */
+/*   Updated: 2025/11/20 17:58:18 by anfarenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void    ft_bzero(void *s, size_t n)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-        char    *temp;
-        size_t  i;
+	char	*result;
+	int		i;
 
-        temp = (char *)s;
-        i = 0;
-        while (i < n)
-        {
-                temp[i] = 0;
-                i++;
-        }
+	if (nmemb == 0 || size == 0)
+		return (malloc(0));
+	if (nmemb > (size_t)-1 / size)
+		return (NULL);
+	result = malloc(size * nmemb);
+	if (!result)
+		return (NULL);
+	i = -1;
+	while (result[++i])
+		result[i] = 0;
+	return ((void *)result);
 }
-
-void    *ft_calloc(size_t nmemb, size_t size)
-{
-        void    *result;
-
-        if (nmemb == 0 || size == 0)
-                return (malloc(0));
-        if (nmemb > (size_t)-1 / size)
-                return (NULL);
-        result = malloc(size * nmemb);
-        if (!result)
-                return (NULL);
-        ft_bzero(result, size * nmemb);
-        return (result);
-}
-
 
 char	*ft_realloc(char *str, int old_len, int new_len)
 {
 	char	*new_str;
 	int		i;
-	
+
 	new_str = ft_calloc(new_len + 1, sizeof(char));
 	i = 0;
 	while (i < old_len)
@@ -96,8 +84,8 @@ char	*ft_strjoin(char *s1, char *s2)
 	size_t	i;
 	size_t	y;
 
-    if (!s1)
-        s1 = ft_calloc(1, sizeof(char));
+	if (!s1)
+		s1 = ft_calloc(1, sizeof(char));
 	if (!s1 || !s2)
 		return (NULL);
 	result = ft_calloc((ft_strlen(s1) + ft_strlen(s2)) + 1, sizeof(char));
@@ -110,6 +98,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (++y < ft_strlen(s2))
 		result[i + y] = s2[y];
 	result[i + y] = '\0';
-        free(s1);
+	free(s1);
 	return (result);
 }

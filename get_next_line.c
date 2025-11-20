@@ -6,7 +6,7 @@
 /*   By: anfarenc <anfarenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 09:45:09 by anfarenc          #+#    #+#             */
-/*   Updated: 2025/11/19 18:27:55 by anfarenc         ###   ########.fr       */
+/*   Updated: 2025/11/20 17:49:50 by anfarenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ char	*ft_grow_stache(int fd, char *stache)
 		n_bytes = read(fd, buff, BUFFER_SIZE);
 		if (n_bytes == -1)
 		{
-			free(buff);	
+			free(buff);
 			return (NULL);
 		}
+		buff[n_bytes] = '\0';
 		stache = ft_strjoin(stache, buff);
 	}
 	free(buff);
@@ -40,7 +41,7 @@ char	*ft_grow_stache(int fd, char *stache)
 	return (stache);
 }
 
-char *ft_get_hair(char *stache)
+char	*ft_get_hair(char *stache)
 {
 	int		i;
 	char	*line;
@@ -71,6 +72,11 @@ char	*ft_trim_stache(char *stache)
 	i = 0;
 	if (!stache)
 		return (NULL);
+	if (!ft_strchr(stache, '\n'))
+	{
+		free(stache);
+		return (NULL);
+	}
 	while (stache[i] && stache[i] != '\n')
 		i++;
 	trimmed_stache = ft_calloc(ft_strlen(&stache[i]) + 2, sizeof(char));
@@ -87,9 +93,9 @@ char	*ft_trim_stache(char *stache)
 
 char	*get_next_line(int fd)
 {
-	static char *stache;
+	static char	*stache;
 	char		*line;
-	
+
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	stache = ft_grow_stache(fd, stache);
