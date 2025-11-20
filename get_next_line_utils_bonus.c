@@ -6,7 +6,7 @@
 /*   By: anfarenc <anfarenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 18:48:06 by anfarenc          #+#    #+#             */
-/*   Updated: 2025/11/20 17:58:32 by anfarenc         ###   ########.fr       */
+/*   Updated: 2025/11/20 19:02:01 by anfarenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	if (!result)
 		return (NULL);
 	i = -1;
-	while (result[++i])
+	while (++i < (int)(size * nmemb))
 		result[i] = 0;
 	return ((void *)result);
 }
