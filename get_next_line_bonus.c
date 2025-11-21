@@ -6,7 +6,7 @@
 /*   By: anfarenc <anfarenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 09:45:09 by anfarenc          #+#    #+#             */
-/*   Updated: 2025/11/20 17:49:57 by anfarenc         ###   ########.fr       */
+/*   Updated: 2025/11/21 12:01:55 by anfarenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ char	*ft_grow_stache(int fd, char *stache)
 	char	*buff;
 	int		n_bytes;
 
-	buff = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	buff[BUFFER_SIZE] = '\0';
 	if (!buff)
 		return (NULL);
 	n_bytes = 1;
@@ -25,10 +26,7 @@ char	*ft_grow_stache(int fd, char *stache)
 	{
 		n_bytes = read(fd, buff, BUFFER_SIZE);
 		if (n_bytes == -1)
-		{
-			free(buff);
-			return (NULL);
-		}
+			return (free(buff), NULL);
 		buff[n_bytes] = '\0';
 		stache = ft_strjoin(stache, buff);
 	}
