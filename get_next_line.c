@@ -6,15 +6,15 @@ char	*ft_grow_stache(int fd, char *stache)
 	int		n_bytes;
 
 	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	buff[BUFFER_SIZE] = '\0';
 	if (!buff)
 		return (NULL);
+	buff[BUFFER_SIZE] = '\0';
 	n_bytes = 1;
 	while (!ft_strchr(stache, '\n') && n_bytes)
 	{
 		n_bytes = read(fd, buff, BUFFER_SIZE);
 		if (n_bytes == -1)
-			return (free(buff), NULL);
+			return (free(buff), free(stache), NULL);
 		buff[n_bytes] = '\0';
 		stache = ft_strjoin(stache, buff);
 	}

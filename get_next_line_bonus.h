@@ -5,6 +5,8 @@
 #  define BUFFER_SIZE 10
 # endif
 
+# define MAX_FD 4096
+
 # include <stdlib.h>
 # include <unistd.h>
 
